@@ -7,6 +7,448 @@
   <meta name="keywords" content="GWU, Data Science, Data, Visualizations">
   <meta name="description" content="An examination of Gun Violence in the U.S.">
   <link rel="stylesheet" href="temp/styles/styles.css">
+
+ <!--  this is test visualization code remove before flight -->
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+    google.charts.load('current',{'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawAllSheets);
+
+    function drawAllSheets() {
+
+      drawSheetName('populationData', 'SELECT A, H',
+              popDataResponseHandler);
+
+      drawSheetName('populationData', 'SELECT A, H',
+              popDataChartResponseHandler);
+
+      drawSheetName('gdp', 'SELECT A, H',
+              gdpResponseHandler);
+
+      drawSheetName('gdp', 'SELECT A, I',
+              gdpAvgResponseHandler); 
+
+      drawSheetName('healthExpendPerCapUSDG20', 'SELECT A, H',
+              healthPerCapAvgResponseHandler);
+
+      drawSheetName('healthExpendTotalUSD', 'SELECT L, M, N, O, P, Q, R, S',
+              healthExpendTotalResponseHandler);
+
+      drawSheetName('healthGDP', 'SELECT B, H, R',
+              healthGDPResponseHandler);
+
+      drawSheetName('healthExpendPerCapUSDG20', 'SELECT M, S, AD',
+              healthPerCapCompareResponseHandler);
+
+      drawSheetName('healthTop10MilCompare', 'SELECT L, H, AC',
+              healthTop10MilCompareResponseHandler);
+
+      drawSheetName('healthGDP', 'SELECT B, J',
+              healthGrowthOverallResponseHandler);  
+
+      drawSheetName('educExpendTotal', 'SELECT A, F',
+              educExpendTotalResponseHandler);
+
+      drawSheetName('educExpendTotal', 'SELECT A, B, C, D, E, F, G',
+              educExpendLineResponseHandler);
+
+      drawSheetName('educGDP', 'SELECT B, G, R',
+              educGDPResponseHandler);
+
+      drawSheetName('educExpendPerCapUSDG20', 'SELECT U, Z, AI',
+              educExpendPerCapCompareResponseHandler);
+
+      drawSheetName('educTop10MilCompare', 'SELECT B, G, AA',
+              educTop10MilCompareResponseHandler);
+
+      drawSheetName('educGDP', 'SELECT B, J',
+              educGrowthOverallResponseHandler);      
+    } //end drawAllSheets
+
+    function drawSheetName(sheetName, query, responseHandler) {
+      var queryString = encodeURIComponent(query);
+      var query = new google.visualization.Query(
+        'https://docs.google.com/spreadsheets/d/1xK6tccWWFn4NdxWvPde3DPRSuVIAJkewbf95FCqwVtM/gviz/tq?sheet='
+        + sheetName + '&headers=1&tq=' + queryString);
+      query.send(responseHandler);
+    } // end drawSheetName
+
+
+    function checkError(response) {
+      if (response.isError()) {
+        alert('Error in query: ' + response.getMessage() + ' ' +
+            reponse.getDetailedMessage());
+      }   
+    } // end checkError
+
+
+    function popDataResponseHandler(response) {
+      checkError(response);
+
+      var data = response.getDataTable();
+      data.sort({column: 1, desc:true});
+
+      var options = {
+        width: 800,
+        height: 600,
+        colorAxis: {colors: ['#ffeda0', '#f03b20']}, //shades from color brewer
+      };
+
+      var chart = new google.visualization.GeoChart(
+        document.getElementById('popData_div'));
+
+      chart.draw(data, options);
+    } // end popDataResponseHandler
+
+    
+    function popDataChartResponseHandler(response) {
+      checkError(response);
+
+      var data = response.getDataTable();
+      data.sort({column: 1, desc: true});
+
+      var options = {
+        width: 800,
+        height: 600,
+        legend: 'none',
+        hAxis: {title: 'Population Count', titleTextStyle: {color: '#2f5572'}},  //check the text color
+        vAxis: {title: 'Country', titleTextStyle: {color: '#2f5572'}}, 
+        bar: {groupWidth: '85%'},
+        colors: ['#feb24c'],
+        chartArea: {backgroundColor: 'edf3f8'}
+      };
+
+      var chart = new google.visualization.BarChart(
+          document.getElementById('popDataChart_div'));
+      
+      chart.draw(data, options);
+    } // end popDataChartResponseHandler
+
+
+    function gdpResponseHandler(response) {
+      checkError(response);
+
+      var data = response.getDataTable();
+      data.sort({column: 1, desc: true});
+
+      var options = {
+        width: 800,
+        height: 600,
+        legend: 'none',
+        hAxis: {title: 'USD', titleTextStyle: {color: '#2f5572'}},
+        vAxis: {title: 'Country', titleTextStyle: {color: '#2f5572'}},
+        bar: {groupWidth: '85%'},
+        colors: ['#feb24c'], 
+        chartArea: {backgroundColor: 'edf3f8'}
+      };
+
+      var chart = new google.visualization.BarChart(
+          document.getElementById('gdp_div'));
+      
+      chart.draw(data, options);
+    } //end gdpResponseHandler
+
+
+    function gdpAvgResponseHandler(response) {
+      checkError(response);
+
+      var data = response.getDataTable();
+      data.sort({column: 1, desc: true});
+
+      var options = {
+        width: 800,
+        height: 600,
+        legend: 'none',
+        hAxis: {title: 'USD', titleTextStyle: {color: '#2f5572'}},
+        vAxis: {title: 'Country', titleTextStyle: {color: '#2f5572'}},
+        bar: {groupWidth: '85%'},
+        colors: ['#f03b20'], 
+        chartArea: {backgroundColor: 'edf3f8'}
+      };
+
+      var chart = new google.visualization.BarChart(
+          document.getElementById('gdpAvg_div'));
+      
+      chart.draw(data, options);      
+    } // end gdpAvgResponseHandler  
+
+
+    function healthPerCapAvgResponseHandler(response) {
+      checkError(response);
+
+      var data = response.getDataTable();
+      data.sort({column: 1, desc: true});
+
+      var options = {
+        width: 800,
+        height: 600,
+        legend: 'none',
+        hAxis: {title: 'Per Capita Spending ($ USD)', titleTextStyle: {color: '#2f5572'}},
+        vAxis: {title: 'Country', titleTextStyle: {color: '#2f5572'}},
+        bar: {groupWidth: '85%'},
+        colors: ['#f03b20'], 
+        chartArea: {backgroundColor: 'edf3f8'}
+      };
+
+      var chart = new google.visualization.BarChart(
+          document.getElementById('healthPerCapAvg_div'));
+      
+      chart.draw(data, options); 
+    } // end healthPerCapAvgResponseHandler
+
+    function healthExpendTotalResponseHandler(response) {
+      checkError(response);
+
+      var data = response.getDataTable();
+      data.sort({column: 6, desc: true});
+
+      var options = {
+        width: 800,
+        height: 600,
+        hAxis: {slantedText: true},
+        seriesType: 'bars',
+        series: {6: {type: 'line'}},
+        chartArea: {backgroundColor: 'edf3f8'}
+        // bar: {groupWidth: '85%'}
+      };
+
+      var chart = new google.visualization.ComboChart(
+          document.getElementById('healthExpendTotal_div'));
+
+      chart.draw(data, options);
+    }  // end healthExpendTotalResponseHandler
+
+    function healthGDPResponseHandler(response) {
+      checkError(response);
+
+      var data = response.getDataTable();
+      data.sort({column: 1, desc: true});
+
+      var options = {
+        width: 800,
+        height: 600,
+        legend: 'none',
+        bars: 'horizontal',
+        isStacked: true,
+        annotations: {alwaysOutside: true},
+        hAxis: {slantedText: true, title: 'Spending in Billions ($ Current USD)', titleTextStyle: {color: '#2f5572'}},
+        vAxis: {title: 'Country', titleTextStyle: {color: '#2f5572'}},
+        chartArea: {backgroundColor: 'edf3f8'}        
+      };
+
+      var chart = new google.visualization.BarChart(
+        document.getElementById('healthGDP_div'))
+
+      chart.draw(data, options);
+    }  // end healthGDPResponseHandler
+
+    function healthPerCapCompareResponseHandler(response) {
+      checkError(response);
+
+      var data = response.getDataTable();
+      data.sort({column: 1, desc: true});
+
+      var options = {
+        width: 800,
+        height: 600,
+        legend: 'none',
+        bars: 'horizontal',
+        isStacked: true,
+        annotations: {alwaysOutside: true},
+        hAxis: {slantedText: true, title: 'Spending in Thousands ($ Current USD)', titleTextStyle: {color: '#2f5572'}},
+        vAxis: {title: 'Country', titleTextStyle: {color: '#2f5572'}},
+        chartArea: {backgroundColor: 'edf3f8'}        
+      };
+
+      var chart = new google.visualization.BarChart(
+        document.getElementById('healthPerCapCompare_div'))
+
+      chart.draw(data, options);
+    }  //end healthPerCapCompareResponseHandler
+
+
+    function healthTop10MilCompareResponseHandler(response) {
+      checkError(response);
+
+      var data = response.getDataTable();
+      data.sort({column: 1, desc: true});
+
+      var options = {
+        width: 800,
+        height: 600,
+        legend: 'none',
+        bars: 'horizontal',
+        isStacked: true,
+        annotations: {alwaysOutside: true},
+        hAxis: {slantedText: true, title: 'Spending in Billions ($ Current USD)', titleTextStyle: {color: '#2f5572'}},
+        vAxis: {title: 'Country', titleTextStyle: {color: '#2f5572'}},
+        chartArea: {backgroundColor: 'edf3f8'}        
+      };
+
+      var chart = new google.visualization.BarChart(
+        document.getElementById('healthTop10MilCompare_div'))
+
+      chart.draw(data, options);
+    } //end healthTop10MilCompareResponseHandler
+
+    function healthGrowthOverallResponseHandler(response) {
+      checkError(response);
+
+      var data = response.getDataTable();
+      data.sort({column: 1, desc: true});
+
+      var options = {
+        width: 800,
+        height: 600,
+        colorAxis: {colors: ['#ffeda0', '#f03b20']}, //shades from color brewer
+      };
+      
+      var chart = new google.visualization.GeoChart(
+            document.getElementById('healthGrowthOverall_div'));
+      
+      chart.draw(data, options);
+    } //end healthGrowthOverallResponseHandler
+
+
+    function educExpendTotalResponseHandler(response) {
+      checkError(response);
+
+      var data = response.getDataTable();
+      data.sort({column: 1, desc: true});
+
+      var options = {
+        width: 800,
+        height: 600,
+        legend: 'none',
+        hAxis: {title: 'Spending in Billions ($USD Current)', titleTextStyle: {color: '#2f5572'}},
+        vAxis: {title: 'Country', titleTextStyle: {color: '#2f5572'}},
+        bar: {groupWidth: '85%'},
+        colors: ['#feb24c'], 
+        chartArea: {backgroundColor: 'edf3f8'}
+      };
+
+      var chart = new google.visualization.BarChart(
+          document.getElementById('educExpendTotal_div'));
+
+      chart.draw(data, options);
+    } // end educExpendTotalResponseHandler
+
+    function educExpendLineResponseHandler(response) {
+      checkError(response);
+
+      var data = response.getDataTable();
+      data.sort({column: 6, desc: true});
+
+      var options = {
+        width: 800,
+        height: 600,
+        hAxis: {slantedText: true},
+        seriesType: 'bars', 
+        series: {5: {type: 'line'}},
+        chartArea: {backgroundColor: 'edf3f8'}
+      };
+
+      var chart = new google.visualization.ComboChart(
+          document.getElementById('educExpendLine_div'));
+
+      chart.draw(data, options);
+    } //end educExpendLineResponseHandler
+
+     function educGDPResponseHandler(response) {
+      checkError(response);
+
+      var data = response.getDataTable();
+      data.sort({column: 1, desc: true});
+
+      var options = {
+        width: 800,
+        height: 600,
+        legend: 'none',
+        bars: 'horizontal',
+        isStacked: true,
+        annotations: {alwaysOutside: true},
+        hAxis: {slantedText: true, title: 'Spending in Billions ($ Current USD)', titleTextStyle: {color: '#2f5572'}},
+        vAxis: {title: 'Country', titleTextStyle: {color: '#2f5572'}},
+        chartArea: {backgroundColor: 'edf3f8'}        
+      };
+
+      var chart = new google.visualization.BarChart(
+        document.getElementById('educGDP_div'))
+
+      chart.draw(data, options);
+     }  // end educGDPResponseHandler
+
+     function educExpendPerCapCompareResponseHandler(response) {
+      checkError(response);
+
+      var data = response.getDataTable();
+      data.sort({column: 1, desc: true});
+
+      var options = {
+        width: 800,
+        height: 600,
+        legend: 'none',
+        bars: 'horizontal',
+        isStacked: true,
+        annotations: {alwaysOutside: true},
+        hAxis: {slantedText: true, title: 'Per Capita ($ Current USD)', titleTextStyle: {color: '#2f5572'}},
+        vAxis: {title: 'Country', titleTextStyle: {color: '#2f5572'}},
+        chartArea: {backgroundColor: 'edf3f8'}        
+      };
+
+      var chart = new google.visualization.BarChart(
+        document.getElementById('educPerCapCompare_div'))
+
+      chart.draw(data, options);      
+     }  // end educExpendPerCapCompareResponseHandler
+
+     function educTop10MilCompareResponseHandler(response) {
+      checkError(response);
+
+      var data = response.getDataTable();
+      data.sort({column: 1, desc: true});
+
+      var options = {
+        width: 800,
+        height: 600,
+        legend: 'none',
+        bars: 'horizontal',
+        isStacked: true,
+        annotations: {alwaysOutside: true},
+        hAxis: {slantedText: true, title: 'Spending in Billions ($ Current USD)', titleTextStyle: {color: '#2f5572'}},
+        vAxis: {title: 'Country', titleTextStyle: {color: '#2f5572'}},
+        chartArea: {backgroundColor: 'edf3f8'}        
+      };
+
+      var chart = new google.visualization.BarChart(
+        document.getElementById('educTop10MilCompare_div'))
+
+      chart.draw(data, options);
+    } //end educTop10MilCompareResponseHandler
+
+    function educGrowthOverallResponseHandler(response) {
+      checkError(response);
+
+      var data = response.getDataTable();
+      data.sort({column: 1, desc: true});
+
+      var options = {
+        width: 800,
+        height: 600,
+        colorAxis: {colors: ['#ffeda0', '#f03b20']}, //shades from color brewer
+      };
+      
+      var chart = new google.visualization.GeoChart(
+            document.getElementById('educGrowthOverall_div'));
+      
+      chart.draw(data, options);
+    } // end educGrowthResponseHandler   
+  </script>
+ <!-- end of test visualization code -->
+
+
+
 </head>
 <body>
   <header>
@@ -20,46 +462,167 @@
   </header>  <!-- end header -->
 
   <div class="large-hero">
-    <img src="assets/images/gun-violenceLarge.jpg">
+
+    <!-- original image -->
+    <!-- <img src="assets/images/gun-violenceLarge_1920x654.jpg"> -->
+
+     
+    <!-- experiment with other sized images -->
+    <picture>
+     <source srcset="assets/images/gun-violenceLarge_1920x654.jpg 1920w" media="(min-width: 1380px)">
+     <source srcset="assets/images/gun-violenceMedium_1380x654.jpg 1380w" media="(min-width: 990px)">
+     <source srcset="assets/images/gun-violenceSmall_990x654.jpg 990w" media="(min-width: 640px)">
+     <img srcset="assets/images/gun-violenceSmaller_640x654.jpg 640w" alt="Gun Violence Art"  class="large-hero__image">
+    </picture> 
+
+      <!-- end experiment with other sized images -->
+
+     
     <div class="large-hero__text-content">
-      <h1 class="large-hero__title">DATS 6401 - Final Project - Robert Harris</h1>
-      <h2 class="large-hero__subtitle">An Examination of Gun Violence in the U.S.</h2>           
+        <div class="wrapper">
+          <h1 class="large-hero__title">DATS 6401 - Final Project - Robert Harris</h1>
+          <h2 class="large-hero__subtitle">An Examination of Gun Violence in the U.S.</h2>           
+        </div> <!-- end wrapper div -->
     </div> <!-- end large-hero__text-content  -->
   </div>  <!-- end large-hero -->
 
-  <div id="introduction">
-    <h2>Header here.</h2>
-    <h3>H3 info here.</h3>
-    <h2>Why this project?</h2>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, <a href="#">quis nostrud exercitation</a> ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-    <p>Duis aute irure dolor in <strong>reprehenderit in</strong> voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum velit esse cillum <strong>dolore eu fugiat.</strong></p>
+  <div id="introduction" class="page-section">
+    <div class="wrapper">
+      <h2 class="headline headline--centered headline--b-margin-small">Header here.</h2>
+      <h3 class="headline headline--centered headline--red headline--small headline--narrow headline--b-margin-large">Why this project?</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, <a href="https://datasci.columbian.gwu.edu/">GWU Data Science Program</a> ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum velit esse cillum dolore eu fugiat.</p>
+    </div> <!-- end div class wrapper  -->
   </div>  <!-- end introduction -->
 
-  <div id="visualizations">
-    <h2>Visualization Section</h2>
+
+
+
+  <div id="visualizations" class="page-section page-section--gray">
+    <div class="wrapper">
+      <h2>Visualization Section</h2>
+      <div class="row">
+
+                <!-- test visualization row-->
+                <table style="width:100%">
+              <caption>HEALTHCARE Overview</caption>
+              <tr>
+                <th>Average Per Capita Healthcare Spending of G20 Nations (2009-2014)</th>
+                <th>Healthcare Spending Totals of Top 10 G20 Nations (2009-2014)</th>
+              </tr>
+              <tr>
+                <td><div id="healthPerCapAvg_div"></div></td>
+                <td><div id="healthExpendTotal_div" ></div></td>
+              </tr>
+              <tr>
+                <td id="postScript">Source: World Bank<br>Created by: Robert Harris</td>
+                <td id="postScript">Source: World Bank<br>Created by: Robert Harris</td>  
+              </tr>
+            </table>
+            <!-- end test visualization row-->
+
+      </div>  <!-- end div class row -->
   
-    
+       
 
-    
-
-    
-
-    
+    </div>  <!-- end visualizations wrapper -->
   </div> <!-- end visualizations -->
 
-  <div id="visualizations2">
-    <h2>More Visualizations</h2>
+  <div id="visualizations2" class="page-section page-section--gray">
+    <div class="wrapper">
+      <h2>More Visualizations</h2>
+
+
+      <!-- test visualization2 row -->
+      <table style="width: 100%">
+      <caption>Education Overview</caption>
+      <tr>
+        <th>Average Educational Spending of Top 10 G20 Nations (2009-2013)</th>
+        <th>Total Educational Spending of Top 10 G20 Nations (2009-2013)</th>
+      </tr>
+      <tr>
+        <td><div id="educExpendTotal_div"></div></td>
+        <td><div id="educExpendLine_div"></div></td>
+      </tr>
+      <tr>
+        <td id="postScript">Source: World Bank<br>Created by: Robert Harris</td>
+        <td id="postScript">Source: World Bank<br>Created by: Robert Harris</td>  
+      </tr>
+    </table>
+
+    <!-- end test visualization2 row--> 
+
 
     
 
-    
-
-    
+    </div> <!-- end visualizations2 wrapper -->
   </div>  <!-- end visualizations2 -->
 
+
+  <div id="visualizations3" class="page-section page-section--gray">
+    <div class="wrapper">
+      <h2>More Visualizations</h2>
+
+
+      <!-- test visualization3 row -->
+      <table style="width: 100%">
+      <caption>Education Overview</caption>
+      <tr>
+        <th>Average Educational Spending of Top 10 G20 Nations (2009-2013)</th>
+        <th>Total Educational Spending of Top 10 G20 Nations (2009-2013)</th>
+      </tr>
+      <tr>
+        <td><div id="educGDP_div"></div></td>
+        <td><div id="educPerCapCompare_div"></div></td>
+      </tr>
+      <tr>
+        <td id="postScript">Source: World Bank<br>Created by: Robert Harris</td>
+        <td id="postScript">Source: World Bank<br>Created by: Robert Harris</td>  
+      </tr>
+    </table>
+
+    <!-- end test visualization3 row--> 
+    
+
+    </div> <!-- end visualizations3 wrapper -->
+  </div>  <!-- end visualizations3 -->
+
+  <div id="visualizations4" class="page-section page-section--gray">
+    <div class="wrapper">
+      <h2>Yet More Visualizations</h2>
+
+
+      <!-- test visualization4 row -->
+      <table style="width: 100%">
+      <caption>Education Overview</caption>
+      <tr>
+        <th>Average Educational Spending of Top 10 G20 Nations (2009-2013)</th>
+        <th>Total Educational Spending of Top 10 G20 Nations (2009-2013)</th>
+      </tr>
+      <tr>
+        <td><div id="educTop10MilCompare_div"></div></td>
+        <td><div id="educGrowthOverall_div"></div></td>
+      </tr>
+      <tr>
+        <td id="postScript">Source: World Bank<br>Created by: Robert Harris</td>
+        <td id="postScript">Source: World Bank<br>Created by: Robert Harris</td>  
+      </tr>
+    </table>
+
+    <!-- end test visualization4 row--> 
+
+
+    
+
+    </div> <!-- end visualizations4 wrapper -->
+  </div>  <!-- end visualizations4 -->
+
+
+
+
   <footer>
-    <p>Copyright &copy; 2018 Robert Harris. <a href="#" class="btn">Contact</a></p>
+    <p>Copyright &copy; 2018 Robert Harris. <a href="mailto:rtharris@gwu.edu" class="btn">Contact</a></p>
   </footer>
 </body>
 </html>
