@@ -1,10 +1,10 @@
 .headline {
-	font-size: 1.9rem;
+	font-size: 1.1rem;
 	font-weight: 300;
 	color: $mainBlack;
 
 	@mixin atSmall {
-		font-size: 2.875rem;
+		font-size: 2.4rem;
 	}
 
 	&--centered {
@@ -16,10 +16,10 @@
 	}
 
 	&--small {
-		font-size: 1.2rem; 
+		font-size: 0.9rem; 
 
 	@mixin atSmall {
-		font-size: 1.875rem; 
+		font-size: 1.4rem; 
 	}
 	}
 
@@ -29,7 +29,7 @@
 		margin-right: auto;
 	}
 
-	&--bottom-margin-small {
+	&--b-margin-small {
 		margin-bottom: .5em;
 	}
 

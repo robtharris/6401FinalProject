@@ -1,3 +1,27 @@
 .row {
+
+	@mixin clearfix;
+
+
+	background-color: yellow;
+
+	&__visualization1 {
+		float: left;
+		width: 50%;
+	}
+
+	&__visualiztion2 {
+		float: left;
+		width: 50%;
+	}
+
+	/*&__footer1 {
+		float: left;
+
+	}
+
+	&__footer2 {
+		float: left;
+	}*/
 	
 }
