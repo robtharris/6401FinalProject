@@ -1,5 +1,5 @@
 .large-hero {
-	border-bottom: 10px solid $mainBlack;
+	/*border-bottom: 10px solid $mainBlack;*/
 	position: relative;
 
 	&__image {
@@ -14,9 +14,8 @@
 	    left: 0;
 	    width: 100%;
 	    text-align: center;
-	    /*max-width: 800px;
 	    margin-left: auto;
-	    margin-right: auto;*/
+	    margin-right: auto;
 	  }
 
 
@@ -35,13 +34,13 @@
 			font-size: 2.4rem; 
 		}
 
-		@mixin atMedium {
+		/*@mixin atMedium {
 			font-size: 3.2rem; 
-		}
+		}*/
 
-		@mixin atLarge {
+		/*@mixin atLarge {
 			font-size: 3.8rem; 
-		}
+		}*/
 		
 	}
 
@@ -58,13 +57,13 @@
 			font-size: 1.4rem; /* what is going on here?*/
 		}
 
-		@mixin atMedium {
-			font-size: 1.8rem; /* what is going on here?*/
-		}
+		/*@mixin atMedium {
+			font-size: 1.8rem;} /* what is going on here?*/
+		
 
-		@mixin atLarge {
-			font-size: 2rem; /* what is going on here?*/
-		}
+		/*@mixin atLarge {
+			font-size: 2rem; 
+		}*/
 	}
 }  /*end .large-hero*/
 

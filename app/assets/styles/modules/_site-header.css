@@ -1,0 +1,8 @@
+.site-header {
+	padding: 10px, 0;
+	height: 30px;
+	position: absolute;
+	width: 100%;
+	z-index: 2;
+	background-color: #1a1a1a;
+}

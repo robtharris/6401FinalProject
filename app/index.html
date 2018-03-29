@@ -451,23 +451,20 @@
 
 </head>
 <body>
-  <header>
-    <nav>
-      <ul>
-        <li><a href="#Gun Violence 1">Gun Violence 1</a></li>
-        <li><a href="#Gun Violence 2">Gun Violence 2</a></li>
-        <li><a href="#Gun Violence 3">Gun Violence 3</a></li>
-      </ul>
-    </nav>  <!-- end navigation section -->
-  </header>  <!-- end header -->
+ <!--  <header class="site-header">
+    <div class="wrapper">
+      <nav class="primary-nav primary-nav--pull-right">
+        <ul>
+          <li><a href="#Gun Violence 1">Gun Violence 1</a></li>
+          <li><a href="#Gun Violence 2">Gun Violence 2</a></li>
+          <li><a href="#Gun Violence 3">Gun Violence 3</a></li>
+        </ul>
+      </nav>
+    </div> 
+  </header>  -->
 
-  <div class="large-hero">
-
-    <!-- original image -->
-    <!-- <img src="assets/images/gun-violenceLarge_1920x654.jpg"> -->
-
-     
-    <!-- experiment with other sized images -->
+  <div class="large-hero">   
+    <!-- load images with different croppings to accomodate screen sizes -->
     <picture>
      <source srcset="assets/images/gun-violenceLarge_1920x654.jpg 1920w" media="(min-width: 1380px)">
      <source srcset="assets/images/gun-violenceMedium_1380x654.jpg 1380w" media="(min-width: 990px)">
@@ -475,19 +472,31 @@
      <img srcset="assets/images/gun-violenceSmaller_640x654.jpg 640w" alt="Gun Violence Art"  class="large-hero__image">
     </picture> 
 
-      <!-- end experiment with other sized images -->
-
+      
      
     <div class="large-hero__text-content">
         <div class="wrapper">
-          <h1 class="large-hero__title">DATS 6401 - Final Project</h1>
+          <h1 class="large-hero__title">DATS 6401 - Final Project - Robert Harris</h1>
           <h2 class="large-hero__subtitle">An Examination of Gun Violence in the U.S.</h2>      
         </div> <!-- end wrapper div -->
     </div> <!-- end large-hero__text-content  -->
   </div>  <!-- end large-hero -->
 
+   
+      <div class="site-header">
+        <div class="wrapper">
+          <nav class="primary-nav primary-nav--pull-right">
+            <ul>
+              <li><a href="#Gun Violence 1">Gun Violence 1</a></li>
+              <li><a href="#Gun Violence 2">Gun Violence 2</a></li>
+              <li><a href="#Gun Violence 3">Gun Violence 3</a></li>
+            </ul>
+          </nav>
+        </div>  <!-- end div wrapper  -->
+      </div> 
+  
 
-
+  
   <div id="introduction" class="page-section page-section--gray">
     <div class="wrapper">
       <h2 class="headline headline--centered headline--b-margin-small">Header here.</h2>
@@ -503,7 +512,7 @@
 
   <div id="visualizations" class="page-section page-section--gray">
     <div class="wrapper">
-      <h2 class="headline headline--centered headline--b-margin-small">Visualization Section</h2>
+      <h2 class="headline headline--centered headline--b-margin-small">Visualization Section 1</h2>
       <h3 class="headline headline--centered headline--red headline--small headline--narrow headline--b-margin-large">Some info about these visualizations</h3>
         <div class="row">              
           <div class="row__visualization1" id="healthPerCapAvg_div"></div>
