@@ -3,14 +3,14 @@
 	@mixin clearfix;
 
 
-	background-color: yellow;
+	background-color: $mainGray;
 
 	&__visualization1 {
 		float: left;
 		width: 50%;
 	}
 
-	&__visualiztion2 {
+	&__visualization2 {
 		float: left;
 		width: 50%;
 	}

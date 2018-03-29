@@ -15,4 +15,9 @@
 			margin-right: 1.4rem;
 		}
 	}
+
+	&__chartArea {
+		height: .1875rem;
+		background-color: $mainBlack;
+	}
 }

@@ -9,4 +9,20 @@
 	@mixin atSmall {
 		font-size: 1.25rem;
 	}
+
+	&--visarea {
+		font-size: 1rem;
+		text-shadow: none;
+		/*opacity: 0.8;*/
+		/*transition: 0.3s;*/
+		/*border: 1px solid #FFF;*/
+		/*border-radius: .5rem;*/
+		height: .68rem;
+		padding: 0rem 2rem .4rem 2rem;
+		transform: translateY(-40%); 
+	}
+
+	&--visarea:hover {
+		opacity: 5;
+	}
 }

@@ -29,41 +29,7 @@
       drawSheetName('gdp', 'SELECT A, I',
               gdpAvgResponseHandler); 
 
-      drawSheetName('healthExpendPerCapUSDG20', 'SELECT A, H',
-              healthPerCapAvgResponseHandler);
-
-      drawSheetName('healthExpendTotalUSD', 'SELECT L, M, N, O, P, Q, R, S',
-              healthExpendTotalResponseHandler);
-
-      drawSheetName('healthGDP', 'SELECT B, H, R',
-              healthGDPResponseHandler);
-
-      drawSheetName('healthExpendPerCapUSDG20', 'SELECT M, S, AD',
-              healthPerCapCompareResponseHandler);
-
-      drawSheetName('healthTop10MilCompare', 'SELECT L, H, AC',
-              healthTop10MilCompareResponseHandler);
-
-      drawSheetName('healthGDP', 'SELECT B, J',
-              healthGrowthOverallResponseHandler);  
-
-      drawSheetName('educExpendTotal', 'SELECT A, F',
-              educExpendTotalResponseHandler);
-
-      drawSheetName('educExpendTotal', 'SELECT A, B, C, D, E, F, G',
-              educExpendLineResponseHandler);
-
-      drawSheetName('educGDP', 'SELECT B, G, R',
-              educGDPResponseHandler);
-
-      drawSheetName('educExpendPerCapUSDG20', 'SELECT U, Z, AI',
-              educExpendPerCapCompareResponseHandler);
-
-      drawSheetName('educTop10MilCompare', 'SELECT B, G, AA',
-              educTop10MilCompareResponseHandler);
-
-      drawSheetName('educGDP', 'SELECT B, J',
-              educGrowthOverallResponseHandler);      
+      
     } //end drawAllSheets
 
     function drawSheetName(sheetName, query, responseHandler) {
@@ -90,7 +56,7 @@
       data.sort({column: 1, desc:true});
 
       var options = {
-        width: 800,
+        width: 650,
         height: 600,
         colorAxis: {colors: ['#ffeda0', '#f03b20']}, //shades from color brewer
       };
@@ -109,7 +75,7 @@
       data.sort({column: 1, desc: true});
 
       var options = {
-        width: 800,
+        width: 650,
         height: 600,
         legend: 'none',
         hAxis: {title: 'Population Count', titleTextStyle: {color: '#2f5572'}},  //check the text color
@@ -133,7 +99,7 @@
       data.sort({column: 1, desc: true});
 
       var options = {
-        width: 800,
+        width: 600,
         height: 600,
         legend: 'none',
         hAxis: {title: 'USD', titleTextStyle: {color: '#2f5572'}},
@@ -157,7 +123,7 @@
       data.sort({column: 1, desc: true});
 
       var options = {
-        width: 800,
+        width: 600,
         height: 600,
         legend: 'none',
         hAxis: {title: 'USD', titleTextStyle: {color: '#2f5572'}},
@@ -171,279 +137,7 @@
           document.getElementById('gdpAvg_div'));
       
       chart.draw(data, options);      
-    } // end gdpAvgResponseHandler  
-
-
-    function healthPerCapAvgResponseHandler(response) {
-      checkError(response);
-
-      var data = response.getDataTable();
-      data.sort({column: 1, desc: true});
-
-      var options = {
-        width: 800,
-        height: 600,
-        legend: 'none',
-        hAxis: {title: 'Per Capita Spending ($ USD)', titleTextStyle: {color: '#2f5572'}},
-        vAxis: {title: 'Country', titleTextStyle: {color: '#2f5572'}},
-        bar: {groupWidth: '85%'},
-        colors: ['#f03b20'], 
-        chartArea: {backgroundColor: 'edf3f8'}
-      };
-
-      var chart = new google.visualization.BarChart(
-          document.getElementById('healthPerCapAvg_div'));
-      
-      chart.draw(data, options); 
-    } // end healthPerCapAvgResponseHandler
-
-    function healthExpendTotalResponseHandler(response) {
-      checkError(response);
-
-      var data = response.getDataTable();
-      data.sort({column: 6, desc: true});
-
-      var options = {
-        width: 800,
-        height: 600,
-        hAxis: {slantedText: true},
-        seriesType: 'bars',
-        series: {6: {type: 'line'}},
-        chartArea: {backgroundColor: 'edf3f8'}
-        // bar: {groupWidth: '85%'}
-      };
-
-      var chart = new google.visualization.ComboChart(
-          document.getElementById('healthExpendTotal_div'));
-
-      chart.draw(data, options);
-    }  // end healthExpendTotalResponseHandler
-
-    function healthGDPResponseHandler(response) {
-      checkError(response);
-
-      var data = response.getDataTable();
-      data.sort({column: 1, desc: true});
-
-      var options = {
-        width: 800,
-        height: 600,
-        legend: 'none',
-        bars: 'horizontal',
-        isStacked: true,
-        annotations: {alwaysOutside: true},
-        hAxis: {slantedText: true, title: 'Spending in Billions ($ Current USD)', titleTextStyle: {color: '#2f5572'}},
-        vAxis: {title: 'Country', titleTextStyle: {color: '#2f5572'}},
-        chartArea: {backgroundColor: 'edf3f8'}        
-      };
-
-      var chart = new google.visualization.BarChart(
-        document.getElementById('healthGDP_div'))
-
-      chart.draw(data, options);
-    }  // end healthGDPResponseHandler
-
-    function healthPerCapCompareResponseHandler(response) {
-      checkError(response);
-
-      var data = response.getDataTable();
-      data.sort({column: 1, desc: true});
-
-      var options = {
-        width: 800,
-        height: 600,
-        legend: 'none',
-        bars: 'horizontal',
-        isStacked: true,
-        annotations: {alwaysOutside: true},
-        hAxis: {slantedText: true, title: 'Spending in Thousands ($ Current USD)', titleTextStyle: {color: '#2f5572'}},
-        vAxis: {title: 'Country', titleTextStyle: {color: '#2f5572'}},
-        chartArea: {backgroundColor: 'edf3f8'}        
-      };
-
-      var chart = new google.visualization.BarChart(
-        document.getElementById('healthPerCapCompare_div'))
-
-      chart.draw(data, options);
-    }  //end healthPerCapCompareResponseHandler
-
-
-    function healthTop10MilCompareResponseHandler(response) {
-      checkError(response);
-
-      var data = response.getDataTable();
-      data.sort({column: 1, desc: true});
-
-      var options = {
-        width: 800,
-        height: 600,
-        legend: 'none',
-        bars: 'horizontal',
-        isStacked: true,
-        annotations: {alwaysOutside: true},
-        hAxis: {slantedText: true, title: 'Spending in Billions ($ Current USD)', titleTextStyle: {color: '#2f5572'}},
-        vAxis: {title: 'Country', titleTextStyle: {color: '#2f5572'}},
-        chartArea: {backgroundColor: 'edf3f8'}        
-      };
-
-      var chart = new google.visualization.BarChart(
-        document.getElementById('healthTop10MilCompare_div'))
-
-      chart.draw(data, options);
-    } //end healthTop10MilCompareResponseHandler
-
-    function healthGrowthOverallResponseHandler(response) {
-      checkError(response);
-
-      var data = response.getDataTable();
-      data.sort({column: 1, desc: true});
-
-      var options = {
-        width: 800,
-        height: 600,
-        colorAxis: {colors: ['#ffeda0', '#f03b20']}, //shades from color brewer
-      };
-      
-      var chart = new google.visualization.GeoChart(
-            document.getElementById('healthGrowthOverall_div'));
-      
-      chart.draw(data, options);
-    } //end healthGrowthOverallResponseHandler
-
-
-    function educExpendTotalResponseHandler(response) {
-      checkError(response);
-
-      var data = response.getDataTable();
-      data.sort({column: 1, desc: true});
-
-      var options = {
-        width: 800,
-        height: 600,
-        legend: 'none',
-        hAxis: {title: 'Spending in Billions ($USD Current)', titleTextStyle: {color: '#2f5572'}},
-        vAxis: {title: 'Country', titleTextStyle: {color: '#2f5572'}},
-        bar: {groupWidth: '85%'},
-        colors: ['#feb24c'], 
-        chartArea: {backgroundColor: 'edf3f8'}
-      };
-
-      var chart = new google.visualization.BarChart(
-          document.getElementById('educExpendTotal_div'));
-
-      chart.draw(data, options);
-    } // end educExpendTotalResponseHandler
-
-    function educExpendLineResponseHandler(response) {
-      checkError(response);
-
-      var data = response.getDataTable();
-      data.sort({column: 6, desc: true});
-
-      var options = {
-        width: 800,
-        height: 600,
-        hAxis: {slantedText: true},
-        seriesType: 'bars', 
-        series: {5: {type: 'line'}},
-        chartArea: {backgroundColor: 'edf3f8'}
-      };
-
-      var chart = new google.visualization.ComboChart(
-          document.getElementById('educExpendLine_div'));
-
-      chart.draw(data, options);
-    } //end educExpendLineResponseHandler
-
-     function educGDPResponseHandler(response) {
-      checkError(response);
-
-      var data = response.getDataTable();
-      data.sort({column: 1, desc: true});
-
-      var options = {
-        width: 800,
-        height: 600,
-        legend: 'none',
-        bars: 'horizontal',
-        isStacked: true,
-        annotations: {alwaysOutside: true},
-        hAxis: {slantedText: true, title: 'Spending in Billions ($ Current USD)', titleTextStyle: {color: '#2f5572'}},
-        vAxis: {title: 'Country', titleTextStyle: {color: '#2f5572'}},
-        chartArea: {backgroundColor: 'edf3f8'}        
-      };
-
-      var chart = new google.visualization.BarChart(
-        document.getElementById('educGDP_div'))
-
-      chart.draw(data, options);
-     }  // end educGDPResponseHandler
-
-     function educExpendPerCapCompareResponseHandler(response) {
-      checkError(response);
-
-      var data = response.getDataTable();
-      data.sort({column: 1, desc: true});
-
-      var options = {
-        width: 800,
-        height: 600,
-        legend: 'none',
-        bars: 'horizontal',
-        isStacked: true,
-        annotations: {alwaysOutside: true},
-        hAxis: {slantedText: true, title: 'Per Capita ($ Current USD)', titleTextStyle: {color: '#2f5572'}},
-        vAxis: {title: 'Country', titleTextStyle: {color: '#2f5572'}},
-        chartArea: {backgroundColor: 'edf3f8'}        
-      };
-
-      var chart = new google.visualization.BarChart(
-        document.getElementById('educPerCapCompare_div'))
-
-      chart.draw(data, options);      
-     }  // end educExpendPerCapCompareResponseHandler
-
-     function educTop10MilCompareResponseHandler(response) {
-      checkError(response);
-
-      var data = response.getDataTable();
-      data.sort({column: 1, desc: true});
-
-      var options = {
-        width: 800,
-        height: 600,
-        legend: 'none',
-        bars: 'horizontal',
-        isStacked: true,
-        annotations: {alwaysOutside: true},
-        hAxis: {slantedText: true, title: 'Spending in Billions ($ Current USD)', titleTextStyle: {color: '#2f5572'}},
-        vAxis: {title: 'Country', titleTextStyle: {color: '#2f5572'}},
-        chartArea: {backgroundColor: 'edf3f8'}        
-      };
-
-      var chart = new google.visualization.BarChart(
-        document.getElementById('educTop10MilCompare_div'))
-
-      chart.draw(data, options);
-    } //end educTop10MilCompareResponseHandler
-
-    function educGrowthOverallResponseHandler(response) {
-      checkError(response);
-
-      var data = response.getDataTable();
-      data.sort({column: 1, desc: true});
-
-      var options = {
-        width: 800,
-        height: 600,
-        colorAxis: {colors: ['#ffeda0', '#f03b20']}, //shades from color brewer
-      };
-      
-      var chart = new google.visualization.GeoChart(
-            document.getElementById('educGrowthOverall_div'));
-      
-      chart.draw(data, options);
-    } // end educGrowthResponseHandler   
+    } // end gdpAvgResponseHandler      
   </script>
  <!-- end of test visualization code -->
 
@@ -451,19 +145,7 @@
 
 </head>
 <body>
- <!--  <header class="site-header">
-    <div class="wrapper">
-      <nav class="primary-nav primary-nav--pull-right">
-        <ul>
-          <li><a href="#Gun Violence 1">Gun Violence 1</a></li>
-          <li><a href="#Gun Violence 2">Gun Violence 2</a></li>
-          <li><a href="#Gun Violence 3">Gun Violence 3</a></li>
-        </ul>
-      </nav>
-    </div> 
-  </header>  -->
-
-  <div class="large-hero">   
+   <div class="large-hero">   
     <!-- load images with different croppings to accomodate screen sizes -->
     <picture>
      <source srcset="assets/images/gun-violenceLarge_1920x654.jpg 1920w" media="(min-width: 1380px)">
@@ -487,17 +169,18 @@
         <div class="wrapper">
           <nav class="primary-nav primary-nav--pull-right">
             <ul>
-              <li><a href="#Gun Violence 1">Gun Violence 1</a></li>
-              <li><a href="#Gun Violence 2">Gun Violence 2</a></li>
-              <li><a href="#Gun Violence 3">Gun Violence 3</a></li>
+              <li><a href="#visualizations1">Gun Violence 1</a></li>
+              <li><a href="#visualizations2">Gun Violence 2</a></li>
+              <li><a href="#visualizations3">Gun Violence 3</a></li>
+              <li><a href="#visualizations4">Gun Violence 4</a></li>
             </ul>
           </nav>
         </div>  <!-- end div wrapper  -->
       </div> 
-  
 
+      
   
-  <div id="introduction" class="page-section page-section--gray">
+  <div id="introduction home" class="page-section page-section--gray">
     <div class="wrapper">
       <h2 class="headline headline--centered headline--b-margin-small">Header here.</h2>
       <h3 class="headline headline--centered headline--red headline--small headline--narrow headline--b-margin-large">Why this project?</h2>
@@ -505,95 +188,77 @@
       <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
       <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum velit esse cillum dolore eu fugiat.</p>
     </div> <!-- end div class wrapper  -->
+
+    <div class="site-footer site-footer__chartArea">
+      <div class="wrapper">
+        <a href="#top" class="btn btn--visarea">Home</a>
+      </div> <!-- end wrapper -->
+    </div> <!-- end site footer -->
   </div>  <!-- end introduction -->
 
 
 
 
-  <div id="visualizations" class="page-section page-section--gray">
-    <div class="wrapper">
-      <h2 class="headline headline--centered headline--b-margin-small">Visualization Section 1</h2>
-      <h3 class="headline headline--centered headline--red headline--small headline--narrow headline--b-margin-large">Some info about these visualizations</h3>
-        <div class="row">              
-          <div class="row__visualization1" id="healthPerCapAvg_div"></div>
-          <div class="row__visualization1" id="healthExpendTotal_div" ></div>
-          <div class="row__footer1">Source: World Bank<br>Created by: Robert Harris</div>
-          <div class="row__footer2">Source: World Bank<br>Created by: Robert Harris</div>            
-        </div>  <!-- end div class row -->
-    </div>  <!-- end visualizations wrapper -->
-  </div> <!-- end visualizations -->
+
+  <div id="visualizations1" class="page-section page-section--gray"> <!-- add class visualizations -->
+    <!-- <div class="visualizations visualizations  header"> -->
+      <!-- <div class="wrapper">
+        <h2 class="headline headline--centered headline--b-margin-small">Visualization Area Title</h2>
+        <h3 class="headline headline--centered headline--red headline--small headline--narrow headline--b-margin-large">Visualization Area Subtitle</h3>
+        <p>Any Content that I want to provide that can take multiple lines if necessary.  In any case, this area will tell about the types of visualizations or provide context as necessary.</p>      
+      </div> -->  <!-- end wrapper -->
+    <!-- </div> --> <!-- end visualizations header -->
+
+    <div class="visualizationHeading-container">
+      <div class="visualizationHeading">
+        <div class="title"><h2>Visualization Area Title</h2></div>
+        <div class="subtitle"><h3>Visualization Area Subtitle</h3></div>
+        <div class="content">
+          <p>Any Content that I want to provide that can take multiple lines if necessary.  In any case, this area will tell about the types of visualizations or provide context as necessary.</p>
+        </div>        
+      </div> <!-- end visualizationHeading   -->  
+    </div> <!-- end visualizationHeading-container -->
+
+
+    <div class="visualization-container">  <!-- start flexbox -->
+      <div class="visualization">
+          <div class="visualizationTitles">
+            <div class="visualizationTitle">Visualization 1 Title Here</div>
+            <div class="visualizationTitle">Visualization 2 Title Here</div>
+          </div> <!-- end visualizationTitles -->
+
+          <div class="visualizationCharts">
+            <div id="popData_div" class="chart"></div>
+            <div id="popDataChart_div" class="chart"></div>
+          </div> <!-- end visualizationCharts  --> 
+      </div> <!-- end visualization -->
+    </div>  <!-- end visualization-container -->
+
+    <div class="#">Source: World Bank<br>Created by: Robert Harris<br>Platform: Google API</div>
+    <div class="#">Source: World Bank<br>Created by: Robert Harris<br>Platform: Google API</div>
 
 
 
+    <div class="site-footer site-footer__chartArea">
+      <div class="wrapper">
+        <a href="#top" class="btn btn--visarea">Home</a>
+      </div> <!-- end wrapper -->
+    </div> <!-- end site footer -->
+      
+    
 
+  </div><!--  end sample visualizations div -->
 
-
-
-
-
-
-
-
-
-  <div id="visualizations2" class="page-section page-section--gray">
-    <div class="wrapper">
-      <h1 class="headline headline--centered headline--b-margin-small">More Visualizations</h2>
-
-
-      <!-- test visualization2 row -->
-      <table style="width: 100%">
-      <caption>Education Overview</caption>
-      <tr>
-        <th>Average Educational Spending of Top 10 G20 Nations (2009-2013)</th>
-        <th>Total Educational Spending of Top 10 G20 Nations (2009-2013)</th>
-      </tr>
-      <tr>
-        <td><div id="educExpendTotal_div"></div></td>
-        <td><div id="educExpendLine_div"></div></td>
-      </tr>
-      <tr>
-        <td id="postScript">Source: World Bank<br>Created by: Robert Harris</td>
-        <td id="postScript">Source: World Bank<br>Created by: Robert Harris</td>  
-      </tr>
-    </table>
-    <!-- end test visualization2 row-->   
-    </div> <!-- end visualizations2 wrapper -->
-  </div>  <!-- end visualizations2 -->
-
-
-
-
-  <div id="visualizations3" class="page-section page-section--gray">
-    <div class="wrapper">
-      <h1 class="headline headline--centered headline--b-margin-small">More Visualizations</h2>
-
-
-      <!-- test visualization3 row -->
-      <table style="width: 100%">
-      <caption>Education Overview</caption>
-      <tr>
-        <th>Average Educational Spending of Top 10 G20 Nations (2009-2013)</th>
-        <th>Total Educational Spending of Top 10 G20 Nations (2009-2013)</th>
-      </tr>
-      <tr>
-        <td><div id="educGDP_div"></div></td>
-        <td><div id="educPerCapCompare_div"></div></td>
-      </tr>
-      <tr>
-        <td id="postScript">Source: World Bank<br>Created by: Robert Harris</td>
-        <td id="postScript">Source: World Bank<br>Created by: Robert Harris</td>  
-      </tr>
-    </table>
-    <!-- end test visualization3 row--> 
-    </div> <!-- end visualizations3 wrapper -->
-  </div>  <!-- end visualizations3 -->
-
-
+ 
 
   <div id="visualizations4" class="page-section page-section--gray">
-    <div class="wrapper">
-      <h1 class="headline headline--centered headline--b-margin-small">Yet More Visualizations</h2>
-
+    <div class="visualizations--header">
+      <div class="wrapper">
+        <h2 class="headline headline--centered headline--b-margin-small">Visualization Area Title</h2>
+        <h3 class="headline headline--centered headline--red headline--small headline--narrow headline--b-margin-large">Visualization Area Subtitle</h3>
+        <p>Any Content that I want to provide that can take multiple lines if necessary.  In any case, this area will tell about the types of visualizations or provide context as necessary.</p>        
+      </div>  <!-- end wrapper -->
+    </div> <!-- end visualizations header -->
 
       <!-- test visualization4 row -->
       <table style="width: 100%">
@@ -603,12 +268,12 @@
         <th>Total Educational Spending of Top 10 G20 Nations (2009-2013)</th>
       </tr>
       <tr>
-        <td><div id="educTop10MilCompare_div"></div></td>
-        <td><div id="educGrowthOverall_div"></div></td>
+        <td><div id="gdp_div"></div></td>
+        <td><div id="gdpAvg_div"></div></td>
       </tr>
       <tr>
-        <td id="postScript">Source: World Bank<br>Created by: Robert Harris</td>
-        <td id="postScript">Source: World Bank<br>Created by: Robert Harris</td>  
+        <td id="postScript">Source: World Bank<br>Created by: Robert Harris<br>Platform: Google API</td>
+        <td id="postScript">Source: World Bank<br>Created by: Robert Harris<br>Platform: Google API</td>  
       </tr>
     </table>
     <!-- end test visualization4 row-->
