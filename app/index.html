@@ -2,283 +2,485 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700' rel='stylesheet' type='text/css'>  
   <title>DATS 6401 - Final Project - Robert Harris</title>
   <meta name="keywords" content="GWU, Data Science, Data, Visualizations">
   <meta name="description" content="An examination of Gun Violence in the U.S.">
   <link rel="stylesheet" href="temp/styles/styles.css">
 
- <!--  this is test visualization code remove before flight -->
+  <!-- scripts for visualizations -->
+  <!-- google api -->
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>  <!-- add js for google api -->
 
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script type="text/javascript">
     google.charts.load('current',{'packages':['corechart']});
     google.charts.setOnLoadCallback(drawAllSheets);
 
-    function drawAllSheets() {
+      function drawAllSheets() {
 
-      drawSheetName('populationData', 'SELECT A, H',
-              popDataResponseHandler);
+          drawSheetName('gunOwnershipWorld', 'SELECT A, H',
+                          gunOwnershipWorldResponseHandler);
 
-      drawSheetName('populationData', 'SELECT A, H',
-              popDataChartResponseHandler);
+          drawSheetName('gunOwnershipWorldBottom10', 'SELECT A, H',
+                          nationsBottom10ResponseHandler);
 
-      drawSheetName('gdp', 'SELECT A, H',
-              gdpResponseHandler);
+          
 
-      drawSheetName('gdp', 'SELECT A, I',
-              gdpAvgResponseHandler); 
+      }  //end drawAllSheets
 
-      
-    } //end drawAllSheets
-
-    function drawSheetName(sheetName, query, responseHandler) {
-      var queryString = encodeURIComponent(query);
-      var query = new google.visualization.Query(
-        'https://docs.google.com/spreadsheets/d/1xK6tccWWFn4NdxWvPde3DPRSuVIAJkewbf95FCqwVtM/gviz/tq?sheet='
-        + sheetName + '&headers=1&tq=' + queryString);
-      query.send(responseHandler);
-    } // end drawSheetName
+      function drawSheetName(sheetName, query, responseHandler) {
+        var queryString = encodeURIComponent(query);
+        var query = new google.visualization.Query(
+          'https://docs.google.com/spreadsheets/d/1Mp9NnDtCX5C8JdmTuWi2Lx58uM6Su5pKDyFdtYZc9EQ/gviz/tq?sheet='
+          + sheetName + '&headers=1&tq=' + queryString);
+        query.send(responseHandler);
+      } // end drawSheetName
 
 
-    function checkError(response) {
-      if (response.isError()) {
-        alert('Error in query: ' + response.getMessage() + ' ' +
-            reponse.getDetailedMessage());
-      }   
-    } // end checkError
+      function checkError(response) {
+        if (response.isError()) {
+          alert('Error in query: ' + response.getMessage() + ' ' +
+              reponse.getDetailedMessage());
+        }   
+      } // end checkError
 
 
-    function popDataResponseHandler(response) {
-      checkError(response);
+      function gunOwnershipWorldResponseHandler(response) {
+        checkError(response);
 
-      var data = response.getDataTable();
-      data.sort({column: 1, desc:true});
+        var data = response.getDataTable();
+        data.sort({column: 1, desc:true});
 
-      var options = {
-        width: 650,
-        height: 600,
-        colorAxis: {colors: ['#ffeda0', '#f03b20']}, //shades from color brewer
-      };
+        var options = {
+          title: "Gun Ownership by Country and Territory",
+          width: 1200,
+          height: 500,
+          colorAxis: {colors: ['#ffeda0', '#f03b20']}, //shades from color brewer
+        };
 
-      var chart = new google.visualization.GeoChart(
-        document.getElementById('popData_div'));
+        var chart = new google.visualization.GeoChart(
+          document.getElementById('gunOwnershipWorld_div'));
 
-      chart.draw(data, options);
-    } // end popDataResponseHandler
+        chart.draw(data, options);
+      } // end gunOwnershipWorldResponseHandler
 
-    
-    function popDataChartResponseHandler(response) {
+
+      function nationsBottom10ResponseHandler(response) {
       checkError(response);
 
       var data = response.getDataTable();
       data.sort({column: 1, desc: true});
 
       var options = {
-        width: 650,
-        height: 600,
+        title: "Gun Ownership of the Bottom 10 Countries (2015)",
+        subtitle: "Avg Firearms per 100 People",
+        width: 800,
+        height: 400,
         legend: 'none',
-        hAxis: {title: 'Population Count', titleTextStyle: {color: '#2f5572'}},  //check the text color
+        hAxis: {title: 'Avg Firearm Count', titleTextStyle: {color: '#2f5572'}},  //check the text color
         vAxis: {title: 'Country', titleTextStyle: {color: '#2f5572'}}, 
         bar: {groupWidth: '85%'},
-        colors: ['#feb24c'],
+        colors: ['#B83F37'],
         chartArea: {backgroundColor: 'edf3f8'}
       };
 
       var chart = new google.visualization.BarChart(
-          document.getElementById('popDataChart_div'));
+          document.getElementById('nationsBottom10_div'));
       
       chart.draw(data, options);
-    } // end popDataChartResponseHandler
+    } // end nationsBottom10ResponseHandler
 
 
-    function gdpResponseHandler(response) {
-      checkError(response);
-
-      var data = response.getDataTable();
-      data.sort({column: 1, desc: true});
-
-      var options = {
-        width: 600,
-        height: 600,
-        legend: 'none',
-        hAxis: {title: 'USD', titleTextStyle: {color: '#2f5572'}},
-        vAxis: {title: 'Country', titleTextStyle: {color: '#2f5572'}},
-        bar: {groupWidth: '85%'},
-        colors: ['#feb24c'], 
-        chartArea: {backgroundColor: 'edf3f8'}
-      };
-
-      var chart = new google.visualization.BarChart(
-          document.getElementById('gdp_div'));
       
-      chart.draw(data, options);
-    } //end gdpResponseHandler
+
+    
 
 
-    function gdpAvgResponseHandler(response) {
-      checkError(response);
 
-      var data = response.getDataTable();
-      data.sort({column: 1, desc: true});
-
-      var options = {
-        width: 600,
-        height: 600,
-        legend: 'none',
-        hAxis: {title: 'USD', titleTextStyle: {color: '#2f5572'}},
-        vAxis: {title: 'Country', titleTextStyle: {color: '#2f5572'}},
-        bar: {groupWidth: '85%'},
-        colors: ['#f03b20'], 
-        chartArea: {backgroundColor: 'edf3f8'}
-      };
-
-      var chart = new google.visualization.BarChart(
-          document.getElementById('gdpAvg_div'));
-      
-      chart.draw(data, options);      
-    } // end gdpAvgResponseHandler      
   </script>
- <!-- end of test visualization code -->
+  <!-- end google api -->
+
+  
 
 
-
+  <!-- end scripts for visualizations -->
 </head>
+
+
 <body>
-   <div class="large-hero">   
+
+<!-- start flotr2.js scripts -->
+  <script src="assets/js/flotr2.min.js"></script>
+
+  <script> //top10 countries
+    window.onload = function() {
+
+      var top10 = [[[0,89],[1,55],[2,46],[3,45],[4,38],[5,36],[6,35],[7,34],[8,32],[9,3]]];
+      var countries = [
+                    [0, "U.S."],
+                    [1, "Yemen"],
+                    [2, "Switzerland"],
+                    [3, "Finland"],
+                    [4, "Serbia"],
+                    [5, "Cyprus"],
+                    [6, "Saudi Arabia"],
+                    [7, "Iraq"],
+                    [8, "Uruguay"],
+                    [9, "Sweden"]
+                    ];
+
+      Flotr.draw(document.getElementById("nationsTop10_div"), top10, {
+          title: "Gun Ownership of the Top 10 Countries (2015)",
+          subtitle: "Avg Firearms per 100 People",
+          // colors: ["#00000", "#1a0000", "#330000", "#4d0000", "#660000", "#800000", "#990000", "#b30000", "#cc0000", "#e60000"],
+          colors: ["#B83F37"],
+          ieBackgroundColor: '#deeaee',
+          labelsAngle: 45,
+          HtmlText: false,
+
+            bars: {
+              show: true,
+              barWidth: 0.5,
+              shadowSize: 0,
+              fillOpacity: 1, 
+              lineWidth: 0,
+              },
+
+            mouse: {
+              track: true,
+              relative: true
+            },
+
+            yaxis: {
+              title: "Avg Firearm Count",
+              min: 0,
+              tickDecimals: 0,
+            },
+
+            xaxis: {
+              title: "Country",
+              ticks: countries,
+              labelsAngle: 30, 
+            },
+
+            grid: {
+              horizontalLines: false, 
+              verticalLines: false,
+            }
+          });
+        };
+  </script>  <!-- end top10 countries -->
+
+
+  <!-- <script> //bottom10 countries
+    window.onload = function() {
+
+      var bottom10 = [[[0,0.1],[1,0.3],[2,0.4],[3,0.4],[4,0.4],[5,0.5],[6,0.5],[7,0.5],[8,0.5],[9,0.5]]];
+      var countries = [
+                    [0, "Tunisia"],
+                    [1, "East Timor"],
+                    [2, "Ethiopia"],
+                    [3, "Ghana"],
+                    [4, "Solomon Islands"],
+                    [5, "Bangladesh"],
+                    [6, "Eritrea"],
+                    [7, "Fiji"],
+                    [8, "Indonesia"],
+                    [9, "Singapore"]
+                    ];
+
+      Flotr.draw(document.getElementById("nationsBottom10_div"), bottom10, {
+          title: "Gun Ownership of the Bottom 10 Countries (2015)",
+          subtitle: "Avg Firearms per 100 People",
+          // colors: ["#00000", "#1a0000", "#330000", "#4d0000", "#660000", "#800000", "#990000", "#b30000", "#cc0000", "#e60000"],
+          ieBackgroundColor: '#deeaee',
+          labelsAngle: 45,
+          HtmlText: false,
+
+          bars: {
+            show: true,
+            barWidth: 0.5,
+            shadowSize: 0,
+            fillOpacity: 1, 
+            lineWidth: 0,
+            },
+
+            yaxis: {
+              min: 0,
+              tickDecimals: 1,
+            },
+
+            xaxis: {
+              ticks: countries,
+              labelsAngle: 30, 
+            },
+
+            grid: {
+              horizontalLines: false, 
+              verticalLines: false,
+            }
+          });
+        };
+  </script> --> <!-- end bottom10 countries -->
+ 
+
+
+
+
+
+  <div class="large-hero">   
     <!-- load images with different croppings to accomodate screen sizes -->
     <picture>
-     <source srcset="assets/images/gun-violenceLarge_1920x654.jpg 1920w" media="(min-width: 1380px)">
-     <source srcset="assets/images/gun-violenceMedium_1380x654.jpg 1380w" media="(min-width: 990px)">
-     <source srcset="assets/images/gun-violenceSmall_990x654.jpg 990w" media="(min-width: 640px)">
-     <img srcset="assets/images/gun-violenceSmaller_640x654.jpg 640w" alt="Gun Violence Art"  class="large-hero__image">
-    </picture> 
-
-      
+      <source srcset="assets/images/gun-violenceLarge_1920x654.jpg 1920w" media="(min-width: 1380px)">
+      <source srcset="assets/images/gun-violenceMedium_1380x654.jpg 1380w" media="(min-width: 990px)">
+      <source srcset="assets/images/gun-violenceSmall_990x654.jpg 990w" media="(min-width: 640px)">
+      <img srcset="assets/images/gun-violenceSmaller_640x654.jpg 640w" alt="Gun Violence Art"  class="large-hero__image">
+    </picture>      
      
     <div class="large-hero__text-content">
-        <div class="wrapper">
-          <h1 class="large-hero__title">DATS 6401 - Final Project - Robert Harris</h1>
-          <h2 class="large-hero__subtitle">An Examination of Gun Violence in the U.S.</h2>      
-        </div> <!-- end wrapper div -->
+      <div class="wrapper">
+        <h1 class="large-hero__title">DATS 6401 - Final Project - Robert Harris</h1>
+        <h2 class="large-hero__subtitle">An Examination of Gun Violence in the U.S.</h2>      
+      </div> <!-- end wrapper div -->
     </div> <!-- end large-hero__text-content  -->
   </div>  <!-- end large-hero -->
 
    
-      <div class="site-header">
-        <div class="wrapper">
-          <nav class="primary-nav primary-nav--pull-right">
-            <ul>
-              <li><a href="#visualizations1">Gun Violence 1</a></li>
-              <li><a href="#visualizations2">Gun Violence 2</a></li>
-              <li><a href="#visualizations3">Gun Violence 3</a></li>
-              <li><a href="#visualizations4">Gun Violence 4</a></li>
-            </ul>
-          </nav>
-        </div>  <!-- end div wrapper  -->
-      </div> 
-
-      
-  
-  <div id="introduction home" class="page-section page-section--gray">
+  <div class="site-header">
     <div class="wrapper">
+      <nav class="primary-nav primary-nav--pull-right">
+        <ul>
+          <li><a href="#visualizations1">Gun Violence 1</a></li>
+          <li><a href="#visualizations2">Gun Violence 2</a></li>
+          <li><a href="#visualizations3">Gun Violence 3</a></li>
+          <li><a href="#visualizations4">Gun Violence 4</a></li>
+          <li><a href="#visualizations5">References</a></li>
+        </ul>
+      </nav>
+    </div>  <!-- end div wrapper  -->
+  </div>  <!-- end site header -->
+
+  <!-- end top matter -->
+      
+  <!-- start page introduction section   -->
+
+  <div id="introduction_home" class="page-section page-section--gray">
+    <div class="#">
       <h2 class="headline headline--centered headline--b-margin-small">Header here.</h2>
-      <h3 class="headline headline--centered headline--red headline--small headline--narrow headline--b-margin-large">Why this project?</h2>
+      <h3 class="headline headline--centered headline--red headline--small headline--narrow headline--b-margin-large">Why this project?</h3>
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, <a href="https://datasci.columbian.gwu.edu/">GWU Data Science Program</a> ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
       <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
       <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum velit esse cillum dolore eu fugiat.</p>
-    </div> <!-- end div class wrapper  -->
-
-    <div class="site-footer site-footer__chartArea">
+    </div> <!-- end div class # -->    
+  </div>  <!-- end introduction_home -->
+  <div class="site-footer site-footer__chartArea">
       <div class="wrapper">
         <a href="#top" class="btn btn--visarea">Home</a>
       </div> <!-- end wrapper -->
-    </div> <!-- end site footer -->
-  </div>  <!-- end introduction -->
+  </div> <!-- end site footer -->
+
+  <!-- end page introduction section  --> 
 
 
-
-
-
-  <div id="visualizations1" class="page-section page-section--gray"> <!-- add class visualizations -->
+  <!-- start visualization sections -->
+  <!-- Visualization section 1 -->
+  <div id="visualizations1" class="viz-section viz-section--1">
+   <div id="vizSection1" class="viz-section viz-section--header"> 
     <!-- <div class="visualizations visualizations  header"> -->
-      <!-- <div class="wrapper">
-        <h2 class="headline headline--centered headline--b-margin-small">Visualization Area Title</h2>
-        <h3 class="headline headline--centered headline--red headline--small headline--narrow headline--b-margin-large">Visualization Area Subtitle</h3>
+      <div class="wrapper">
+        <h2 class="headline headline--centered headline--b-margin-small">Gun Ownership by Country and Territory</h2>
+        <!-- <h3 class="headline headline--centered headline--red headline--small headline--narrow headline--b-margin-large">Visualization Area Subtitle</h3> -->
         <p>Any Content that I want to provide that can take multiple lines if necessary.  In any case, this area will tell about the types of visualizations or provide context as necessary.</p>      
-      </div> -->  <!-- end wrapper -->
-    <!-- </div> --> <!-- end visualizations header -->
+      </div>  <!-- end wrapper -->
+    </div> <!-- end viz-section--header -->
+    <div class="viz-section viz-section--free-title">World Firearms Ownership 
+                                                <br> Average Number of Firearms per 100 People
+    </div>
+    <div id="gunOwnershipWorld_div" class="gunOwnershipWorld">
+    </div>  <!-- end gunOwnershipWorld_div -->
 
-    <div class="visualizationHeading-container">
-      <div class="visualizationHeading">
-        <div class="title"><h2>Visualization Area Title</h2></div>
-        <div class="subtitle"><h3>Visualization Area Subtitle</h3></div>
-        <div class="content">
-          <p>Any Content that I want to provide that can take multiple lines if necessary.  In any case, this area will tell about the types of visualizations or provide context as necessary.</p>
-        </div>        
-      </div> <!-- end visualizationHeading   -->  
-    </div> <!-- end visualizationHeading-container -->
+    <div class="postScript">Source: Small Arms Survey 2015<br>Created by: Robert Harris<br>Platform: Google API
+    </div>
 
-
-    <div class="visualization-container">  <!-- start flexbox -->
-      <div class="visualization">
-          <div class="visualizationTitles">
-            <div class="visualizationTitle">Visualization 1 Title Here</div>
-            <div class="visualizationTitle">Visualization 2 Title Here</div>
-          </div> <!-- end visualizationTitles -->
-
-          <div class="visualizationCharts">
-            <div id="popData_div" class="chart"></div>
-            <div id="popDataChart_div" class="chart"></div>
-          </div> <!-- end visualizationCharts  --> 
-      </div> <!-- end visualization -->
-    </div>  <!-- end visualization-container -->
-
-    <div class="#">Source: World Bank<br>Created by: Robert Harris<br>Platform: Google API</div>
-    <div class="#">Source: World Bank<br>Created by: Robert Harris<br>Platform: Google API</div>
-
-
-
+    <div id="#" class="#" >
+      <table style="width: 90%">
+        <!-- <caption>Gun Ownership in the Top and Bottom 10 Countries & Territories (2015)</caption> -->
+        <tr>
+          <td><div id="nationsTop10_div" style="width: 800px;height: 400px;"></div></td>
+          <td><div id="nationsBottom10_div" style="width: 800px;height: 400px;"></div></td>
+        </tr>
+        <tr>
+          <td id="postScript" class="postScript" style="width: 50%;">Source: Small Arms Survey 2015<br>Created by: Robert Harris<br>Platform: Flotr2.js</td>
+          <td id="postScript" class="postScript">Source: Small Arms Survey 2015<br>Created by: Robert Harris<br>Platform: Google API</td>
+        </tr>
+      </table>
+    </div>
     <div class="site-footer site-footer__chartArea">
       <div class="wrapper">
         <a href="#top" class="btn btn--visarea">Home</a>
       </div> <!-- end wrapper -->
-    </div> <!-- end site footer -->
-      
+    </div> <!-- end site footer -->      
+  </div>  <!-- end visualization section 1 -->
+
+
+    <!-- Visualization section 2 -->
+  <div id="visualizations2" class="viz-section viz-section--2">
+   <div id="vizSection2" class="viz-section viz-section--header"> 
+    <!-- <div class="visualizations visualizations  header"> -->
+      <div class="wrapper">
+        <h2 class="headline headline--centered headline--b-margin-small">Gun Ownership in the United States</h2>
+        <!-- <h3 class="headline headline--centered headline--red headline--small headline--narrow headline--b-margin-large">Visualization Area Subtitle</h3> -->
+        <p>Any Content that I want to provide that can take multiple lines if necessary.  In any case, this area will tell about the types of visualizations or provide context as necessary.</p>      
+      </div>  <!-- end wrapper -->
+    </div> <!-- end viz-section--header -->
+
+    <!-- begin tableau embedding -->
+    <div class='tableauPlaceholder' id='viz1525629963122' style='position: relative'><noscript><a href='#'><img alt='Gun Ownership in the United States ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;DA&#47;DATS6401-FinalProject-RobertHarris&#47;Dashboard1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='DATS6401-FinalProject-RobertHarris&#47;Dashboard1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;DA&#47;DATS6401-FinalProject-RobertHarris&#47;Dashboard1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='filter' value='publish=yes' /></object>
+    </div>
+    <script type='text/javascript'>
+        var divElement = document.getElementById('viz1525629963122');                    
+        var vizElement = divElement.getElementsByTagName('object')[0];                    
+            vizElement.style.width='100%';
+            vizElement.style.height='1050px';   //(divElement.offsetWidth*0.75)+'px';
+        var scriptElement = document.createElement('script');
+            scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    
+            vizElement.parentNode.insertBefore(scriptElement, vizElement);
+    </script>
+    <!-- end tableau embedding -->
+    <div id="#" class="#">
+    </div>  <!-- end # -->
+    <div class="postScript">Source: NORC at the University of Chicago<br>Created by: Robert Harris<br>Platform: Tableau Desktop and Tableau Public</div>
+    </div>
+    <div class="site-footer site-footer__chartArea">
+      <div class="wrapper">
+        <a href="#top" class="btn btn--visarea">Home</a>
+      </div> <!-- end wrapper -->
+    </div> <!-- end site footer -->      
+  </div>  <!-- end visualization section 2 -->
+
+
+  <!-- Visualization section 3 -->
+  <div id="visualizations3" class="viz-section viz-section--3">
+   <div id="vizSection3" class="viz-section viz-section--header"> 
+    <!-- <div class="visualizations visualizations  header"> -->
+      <div class="wrapper">
+        <h2 class="headline headline--centered headline--b-margin-small">Mass Shooting & Mortality Rate</h2>
+        <!-- <h3 class="headline headline--centered headline--red headline--small headline--narrow headline--b-margin-large">Visualization Area Subtitle</h3> -->
+        <p>Any Content that I want to provide that can take multiple lines if necessary.  In any case, this area will tell about the types of visualizations or provide context as necessary.</p>      
+      </div>  <!-- end wrapper -->
+    </div> <!-- end viz-section--header -->
+
+    <!-- begin tableau embedding -->
+    <div class='tableauPlaceholder' id='viz1525657997197' style='position: relative;'><noscript><a href='#'><img alt='Dashboard 1 ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ma&#47;massShootings&#47;Dashboard1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='massShootings&#47;Dashboard1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ma&#47;massShootings&#47;Dashboard1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='filter' value='publish=yes' /></object>
+    </div>
+    <script type='text/javascript'>                    
+        var divElement = document.getElementById('viz1525657997197');                    
+        var vizElement = divElement.getElementsByTagName('object')[0];                    
+            vizElement.style.width='100%';
+            vizElement.style.height='1050px';  //(divElement.offsetWidth*0.75)+'px';         
+        var scriptElement = document.createElement('script');  
+            scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    
+            vizElement.parentNode.insertBefore(scriptElement, vizElement);                
+    </script>
+    <!-- end tableau embedding -->
+    <div class="postScript">Source: Centers for Disease Control, Mother Jones, and Injury Prevention<br>Created by: Robert Harris<br>Platform: Tableau Desktop and Tableau Public
+    </div>
+
+    <div id="#" class="#" >
+      <table style="width: 90%">
+        <!-- <caption>Gun Ownership in the Top and Bottom 10 Countries & Territories (2015)</caption> -->
+        <tr>
+          <td><div id="#" style="width: 800px;height: 400px;"></div></td>
+          <td><div id="#" style="width: 800px;height: 400px;"></div></td>
+        </tr>
+        <tr>
+          <td id="postScript" class="postScript" style="width: 50%;">Source: Centers for Disease Control, Mother Jones, and Injury Prevention<br>Created by: Robert Harris<br>Platform: Tableau Desktop and Tableau Public</td>
+          <td id="postScript" class="postScript">Source: Small Arms Survey 2015<br>Created by: Robert Harris<br>Platform: #</td>
+        </tr>
+      </table>
+    </div>
+    <div class="site-footer site-footer__chartArea">
+      <div class="wrapper">
+        <a href="#top" class="btn btn--visarea">Home</a>
+      </div> <!-- end wrapper -->
+    </div> <!-- end site footer -->      
+  </div>  <!-- end visualization section 3 -->
+
+
+
+
+
+
+
+
+
+  <!-- references section  -->
+  <div id="References" class="viz-section viz-section--1">
+   <div id="vizSection1" class="viz-section viz-section--header"> 
+    <!-- <div class="visualizations visualizations  header"> -->
+      <div class="wrapper">
+        <h2 class="headline headline--centered headline--b-margin-small">References and sources used during this class</h2>   
+      </div>  <!-- end wrapper -->
+    </div> <!-- end viz-section--header -->
     
 
-  </div><!--  end sample visualizations div -->
+    <div id="#" class="#" >
+      <table style="width: 100%">
+        <tr>
+          <td>
+            <a href="https://datasci.columbian.gwu.edu/" target="blank">
+              <img src="assets/images/gwulogo.png" alt="GWU Logo">
+            </a>
+          </td>
+          <td>
+            <a href="https://www.tableau.com/" target="blank">
+              <img src="assets/images/tableauLogo.png" alt="Tableau Logo">
+            </a>
+          </td>
+          <td>
+            <a href="https://d3js.org/" target="blank">
+              <img src="assets/images/d3Logo.jpg" alt="D3.js Logo">
+            </a>
+          </td>
+        </tr>
+        <tr>
+          <td>
+             <a href="https://developers.google.com/chart/" target="blank">
+              <img src="assets/images/googleLogo.jpg" alt="Google Charts Logo">
+            </a>
+          </td>
+          <td>
+            <a href="https://www.w3.org/" target="blank">
+              <img src="assets/images/htmlCssJs.png" alt="Web Technologies Logo">
+            </a>
+          </td>
+          <td>
+            <a href="https://aws.amazon.com/" target="blank">
+              <img src="assets/images/awsLogo.png" alt="AWS Logo">
+            </a>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </table>
+      <br>
+      <br>
+    </div>
+    <div class="site-footer site-footer__referenceArea">
+      <div class="wrapper">
+        <a href="#top" class="btn btn--visarea">Home</a>
+      </div> <!-- end wrapper -->
+    </div> <!-- end site footer -->      
+  </div>  <!-- end visualization section 1 -->
+
+
+
 
  
 
-  <div id="visualizations4" class="page-section page-section--gray">
-    <div class="visualizations--header">
-      <div class="wrapper">
-        <h2 class="headline headline--centered headline--b-margin-small">Visualization Area Title</h2>
-        <h3 class="headline headline--centered headline--red headline--small headline--narrow headline--b-margin-large">Visualization Area Subtitle</h3>
-        <p>Any Content that I want to provide that can take multiple lines if necessary.  In any case, this area will tell about the types of visualizations or provide context as necessary.</p>        
-      </div>  <!-- end wrapper -->
-    </div> <!-- end visualizations header -->
-
-      <!-- test visualization4 row -->
-      <table style="width: 100%">
-      <caption>Education Overview</caption>
-      <tr>
-        <th>Average Educational Spending of Top 10 G20 Nations (2009-2013)</th>
-        <th>Total Educational Spending of Top 10 G20 Nations (2009-2013)</th>
-      </tr>
-      <tr>
-        <td><div id="gdp_div"></div></td>
-        <td><div id="gdpAvg_div"></div></td>
-      </tr>
-      <tr>
-        <td id="postScript">Source: World Bank<br>Created by: Robert Harris<br>Platform: Google API</td>
-        <td id="postScript">Source: World Bank<br>Created by: Robert Harris<br>Platform: Google API</td>  
-      </tr>
-    </table>
-    <!-- end test visualization4 row-->
-    </div> <!-- end visualizations4 wrapper -->
-  </div>  <!-- end visualizations4 -->
 
 
 

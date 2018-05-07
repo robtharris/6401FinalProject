@@ -3,7 +3,7 @@
 	position: relative;
 
 	&__image {
-		display: block;
+		display: block;  /*need to create a container for the image and resize there.*/
 	}
 
 

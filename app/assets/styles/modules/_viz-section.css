@@ -1,0 +1,41 @@
+.viz-section {
+	border: .1px solid $mainGray;
+	padding-top: 0;
+	margin-top: 0;
+
+
+	&--header {
+		padding-top: 0;
+		/*border: 1px, solid blue;*/
+		background-color: $mainGray;
+		color: $mainBlack;
+	}
+
+	&--free-title {
+		text-align: center;
+		background-color: $mainGray;
+		border-top: 0.1px solid $mainBlack;
+		font-size: 1.1rem;
+		font-weight: 400;
+		color: $mainBlack;
+	}
+}
+
+.gunOwnershipWorld {
+		
+		margin: auto;
+		width: 70%;
+		padding: 10px;
+}
+
+.postScript {
+	background-color: $mainGray;
+	text-align: center;
+
+}
+
+
+
+
+
+

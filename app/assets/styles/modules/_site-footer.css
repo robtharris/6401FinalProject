@@ -17,7 +17,14 @@
 	}
 
 	&__chartArea {
-		height: .1875rem;
+		height: 3px;  /*.1875rem;*/
 		background-color: $mainBlack;
 	}
+
+	&__referenceArea {
+		height: 3px;
+		background-color: $mainGray;
+	}
+
+	
 }

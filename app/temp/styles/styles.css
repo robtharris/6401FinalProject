@@ -468,7 +468,7 @@ img {
 }
 
 .large-hero__image {
-		display: block;
+		display: block;  /*need to create a container for the image and resize there.*/
 	}
 
 .large-hero__text-content {
@@ -560,7 +560,7 @@ img {
 		/*transition: 0.3s;*/
 		/*border: 1px solid #FFF;*/
 		/*border-radius: .5rem;*/
-		height: .68rem;
+		height: 13px;
 		padding: 0rem 2rem .4rem 2rem;
 		-webkit-transform: translateY(-40%);
 		        transform: translateY(-40%); 
@@ -688,6 +688,8 @@ img {
 	color: #FFF;
 	padding: 0.5rem;
 	text-align: center;
+
+	
 }
 
 .site-footer__text {
@@ -706,8 +708,13 @@ img {
 	}
 
 .site-footer__chartArea {
-		height: .1875rem;
+		height: 3px;  /*.1875rem;*/
 		background-color: #1a1a1a;
+	}
+
+.site-footer__referenceArea {
+		height: 3px;
+		background-color: #deeaee;
 	}
 
 .site-header {
@@ -769,87 +776,41 @@ img {
 		font-weight: 400;
 	}
 
-.visualizations {
-
-	/*&--container {
-		display: flex;
-		justify-content: center;
-		max-width: 45%%;
-	} */
-
-	
-
-	/*.visualizations--section1 {
-		border: 1px solid #fff;
-  		width: 900px;
-  		display: flex;
-  		justify-content: flex-start;
-  		
-	}
-
-	.visualizations--section2 {
-		background-color:#7887AB;
-    flex-grow: 1;
-
-	}*/
-
-	/*.visualizations--container {
-		display: flex;
-		justify-content: center;
-	}
-
-	.visualizations--containerGrid {
-		width: 900px;
-		display: flex;
-		justify-content: flex-start;
-	}
-
-	.visualizations--containerGrid-item {
-		border-bottom: 1px solid red;
-	}*/
+.viz-section {
+	border: .1px solid #deeaee;
+	padding-top: 0;
+	margin-top: 0;
 }
 
-.visualizationHeading-container {
+.viz-section--header {
+		padding-top: 0;
+		/*border: 1px, solid blue;*/
+		background-color: #deeaee;
+		color: #1a1a1a;
+	}
+
+.viz-section--free-title {
+		text-align: center;
+		background-color: #deeaee;
+		border-top: 0.1px solid #1a1a1a;
+		font-size: 1.1rem;
+		font-weight: 400;
+		color: #1a1a1a;
+	}
+
+.gunOwnershipWorld {
+		
+		margin: auto;
+		width: 70%;
+		padding: 10px;
+}
+
+.postScript {
 	background-color: #deeaee;
-	padding: 0 0;
-	display: -webkit-box;
-	display: -ms-flexbox;
-	display: flex;
-	-webkit-box-pack: center;
-	    -ms-flex-pack: center;
-	        justify-content: center;
+	text-align: center;
+
 }
 
-.visualizationHeading {
-	border: 1px solid #1a1a1a;  /*for debugging*/
-	display: -webkit-box;
-	display: -ms-flexbox;
-	display: flex;
-  	-webkit-box-pack: justify;
-  	    -ms-flex-pack: justify;
-  	        justify-content: space-between;
-}
-
-.visualization-container {
-	background-color: #deeaee;
-	padding: 20px 0;
-	display: -webkit-box;
-	display: -ms-flexbox;
-	display: flex;
-	-webkit-box-pack: start;
-	    -ms-flex-pack: start;
-	        justify-content: flex-start;
-}
-
-.visualization {
-	border: 1px solid #1a1a1a;  /*for debugging*/
-	display: -webkit-box;
-	display: -ms-flexbox;
-	display: flex;
-  	-webkit-box-pack: justify;
-  	    -ms-flex-pack: justify;
-  	        justify-content: space-between;
-}
 
 
 

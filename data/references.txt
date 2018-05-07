@@ -1,0 +1,51 @@
+CDC Injury Prevention & Control
+WISQARS
+
+2009 - 2016, United States 
+Firearm Deaths and Rates per 100,000 
+All Races, Both Sexes, All Ages 
+ICD-10 Codes: W32-W34,X72-X74,X93-X95,Y22-Y24,
+Y35.0,*U01.4
+
+Number of
+Deaths	Population***	Crude
+Rate	Age-Adjusted
+Rate**
+271,073	2,519,973,269	10.76	10.52
+
+https://www.cdc.gov/injury/wisqars/index.html
+
+----------------------------------
+
+https://www.theatlantic.com/education/archive/2018/02/another-school-shootingbut-whos-counting/553412/
+
+
+Under pressure from the National Rifle Association, Congress in 1996 prohibited the Centers for Disease Control and Prevention from funding public-health research on issues related to firearms. These prohibitions have largely persisted, and there is still no comprehensive federal database on gun deaths, let alone on school shootings.
+
+----------------------------------
+
+https://www.motherjones.com/politics/2012/12/mass-shootings-mother-jones-full-data/
+
+US Mass Shootings, 1982-2018: Data From Mother Jones’ Investigation
+
+
+------------------------------------
+
+https://www.abc15.com/news/data/mass-shootings-in-the-us-when-where-they-have-occurred-in-2018
+
+"The F.B.I. defines a "mass killing" as the killing of three or more people in a public place, but the federal agency also defines a "mass murderer" as someone who has killed four or more people in the same location."
+
+
+-----------------------------------------
+
+http://www.shootingtracker.com/
+
+------------------------------------------
+2018 School Shootings
+https://www.abc15.com/news/data/school-shootings-in-u-s-when-where-each-shooting-has-occurred-in-2018
+
+------------------------------------------
+
+https://everytownresearch.org/
+
+The organization defines a school shooting as "any time a firearm discharges a live round inside a school building or on a school campus or grounds." 
