@@ -605,6 +605,11 @@ img {
 		color: #1a1a1a;
 	}
 
+.page-section--paragraph {
+		padding: 0.3125rem 2rem;
+		color: #1a1a1a;
+	}
+
 .headline {
 	font-size: 1.1rem;
 	font-weight: 300;
@@ -784,7 +789,6 @@ img {
 
 .viz-section--header {
 		padding-top: 0;
-		/*border: 1px, solid blue;*/
 		background-color: #deeaee;
 		color: #1a1a1a;
 	}
@@ -792,7 +796,6 @@ img {
 .viz-section--free-title {
 		text-align: center;
 		background-color: #deeaee;
-		border-top: 0.1px solid #1a1a1a;
 		font-size: 1.1rem;
 		font-weight: 400;
 		color: #1a1a1a;

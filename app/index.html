@@ -24,7 +24,11 @@
           drawSheetName('gunOwnershipWorldBottom10', 'SELECT A, H',
                           nationsBottom10ResponseHandler);
 
-          
+          drawSheetName('intentionalHomiWorldTop20', 'SELECT A, M',
+                          intentionalHomiWorldTop20ResponseHandler);
+
+          drawSheetName('intentionalHomiWorldBottom20', 'SELECT A, M',
+                          intentionalHomiWorldBottom20ResponseHandler);
 
       }  //end drawAllSheets
 
@@ -80,7 +84,7 @@
         hAxis: {title: 'Avg Firearm Count', titleTextStyle: {color: '#2f5572'}},  //check the text color
         vAxis: {title: 'Country', titleTextStyle: {color: '#2f5572'}}, 
         bar: {groupWidth: '85%'},
-        colors: ['#B83F37'],
+        colors: ['#feb24c'],
         chartArea: {backgroundColor: 'edf3f8'}
       };
 
@@ -91,26 +95,64 @@
     } // end nationsBottom10ResponseHandler
 
 
+    function intentionalHomiWorldTop20ResponseHandler(response) {
+      checkError(response);
+
+      var data = response.getDataTable();
+      data.sort({column: 1, desc: true});
+
+      var options = {
+        title: "Avg Intentional Firearm Homicides of Top 20 Countries (2005 - 2012)",
+        width: 800,
+        height: 600,
+        legend: 'none',
+        hAxis: {title: 'Avg Fatalities', titleTextStyle: {color: '#2f5572'}},  //check the text color
+        vAxis: {title: 'Country', titleTextStyle: {color: '#2f5572'}}, 
+        bar: {groupWidth: '85%'},
+        colors: ['#B83F37'],
+        chartArea: {backgroundColor: 'edf3f8'}
+      };
+
+      var chart = new google.visualization.BarChart(
+          document.getElementById('intentionalHomiWorldTop20_div'));
       
+      chart.draw(data, options);
+    } // end intentionalHomiWorldTop20ResponseHandler
 
-    
 
+    function intentionalHomiWorldBottom20ResponseHandler(response) {
+      checkError(response);
 
+      var data = response.getDataTable();
+      data.sort({column: 1, desc: false});
+
+      var options = {
+        title: "Avg Intentional Firearm Homicides of Bottom 20 Countries (2005 - 2012)",
+        width: 800,
+        height: 600,
+        legend: 'none',
+        hAxis: {title: 'Avg Fatalities', titleTextStyle: {color: '#2f5572'}},  //check the text color
+        vAxis: {title: 'Country', titleTextStyle: {color: '#2f5572'}}, 
+        bar: {groupWidth: '85%'},
+        colors: ['#feb24c'],
+        chartArea: {backgroundColor: 'edf3f8'}
+      };
+
+      var chart = new google.visualization.BarChart(
+          document.getElementById('intentionalHomiWorldBottom20_div'));
+      
+      chart.draw(data, options);
+    } // end intentionalHomiWorldBottom20ResponseHandler
 
   </script>
   <!-- end google api -->
-
-  
-
-
   <!-- end scripts for visualizations -->
 </head>
-
 
 <body>
 
 <!-- start flotr2.js scripts -->
-  <script src="assets/js/flotr2.min.js"></script>
+  <script src="assets/js/flotr2.min.js"></script>  <!-- load Flotr2 library -->
 
   <script> //top10 countries
     window.onload = function() {
@@ -172,62 +214,6 @@
   </script>  <!-- end top10 countries -->
 
 
-  <!-- <script> //bottom10 countries
-    window.onload = function() {
-
-      var bottom10 = [[[0,0.1],[1,0.3],[2,0.4],[3,0.4],[4,0.4],[5,0.5],[6,0.5],[7,0.5],[8,0.5],[9,0.5]]];
-      var countries = [
-                    [0, "Tunisia"],
-                    [1, "East Timor"],
-                    [2, "Ethiopia"],
-                    [3, "Ghana"],
-                    [4, "Solomon Islands"],
-                    [5, "Bangladesh"],
-                    [6, "Eritrea"],
-                    [7, "Fiji"],
-                    [8, "Indonesia"],
-                    [9, "Singapore"]
-                    ];
-
-      Flotr.draw(document.getElementById("nationsBottom10_div"), bottom10, {
-          title: "Gun Ownership of the Bottom 10 Countries (2015)",
-          subtitle: "Avg Firearms per 100 People",
-          // colors: ["#00000", "#1a0000", "#330000", "#4d0000", "#660000", "#800000", "#990000", "#b30000", "#cc0000", "#e60000"],
-          ieBackgroundColor: '#deeaee',
-          labelsAngle: 45,
-          HtmlText: false,
-
-          bars: {
-            show: true,
-            barWidth: 0.5,
-            shadowSize: 0,
-            fillOpacity: 1, 
-            lineWidth: 0,
-            },
-
-            yaxis: {
-              min: 0,
-              tickDecimals: 1,
-            },
-
-            xaxis: {
-              ticks: countries,
-              labelsAngle: 30, 
-            },
-
-            grid: {
-              horizontalLines: false, 
-              verticalLines: false,
-            }
-          });
-        };
-  </script> --> <!-- end bottom10 countries -->
- 
-
-
-
-
-
   <div class="large-hero">   
     <!-- load images with different croppings to accomodate screen sizes -->
     <picture>
@@ -254,7 +240,7 @@
           <li><a href="#visualizations2">Gun Violence 2</a></li>
           <li><a href="#visualizations3">Gun Violence 3</a></li>
           <li><a href="#visualizations4">Gun Violence 4</a></li>
-          <li><a href="#visualizations5">References</a></li>
+          <li><a href="#references">References</a></li>
         </ul>
       </nav>
     </div>  <!-- end div wrapper  -->
@@ -266,11 +252,20 @@
 
   <div id="introduction_home" class="page-section page-section--gray">
     <div class="#">
-      <h2 class="headline headline--centered headline--b-margin-small">Header here.</h2>
+      <h2 class="headline headline--centered headline--b-margin-small">Gun Violence in the U.S.</h2>
       <h3 class="headline headline--centered headline--red headline--small headline--narrow headline--b-margin-large">Why this project?</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, <a href="https://datasci.columbian.gwu.edu/">GWU Data Science Program</a> ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum velit esse cillum dolore eu fugiat.</p>
+      <div class="page-section page-section--paragraph">
+        <p>Gun violence in the U.S. is a recurring public crisis.  It seems that one cannot open an internet browser, turn on a television, open a newspaper, or listen to a radio without hearing of a new tragedy at the hands of an armed assailant.  This project will examine recent gun violence in the U.S. using several data sets from varying sources in an attempt to develop an understanding of the nature of these tragedies.</p>
+
+        <p>We will begin with a brief overview of worldwide gun ownership to examine the number of weapons that exist by country and territory.  It is important to note that the data relates to legally purchased and procured weapons by the civilian (non-military and non-law enforcement) populations in these areas.</p>
+
+        <p>Next, is a deeper dive into gun ownership within the U.S. using several key indicators to develop an understanding of the cross-section of legal gun ownership.</p>
+
+        <p>The project will close with a look at mass shootings for 2018 and mortality rates due to firearms within the U.S.</p>
+
+        <p>This project is the culmination of a graduate level course in data visualization as part of the <a href="https://datasci.columbian.gwu.edu/" target="blank">GWU Data Science Program</a>.  This course was a comprehensive study of data visualization techniques that blended the art and science of this subject.  During this course, several visualization technologies were utilized and this page will leverage several of them to demonstrate strengths and weaknesses of some of these technologies.</p> 
+      </div>
+
     </div> <!-- end div class # -->    
   </div>  <!-- end introduction_home -->
   <div class="site-footer site-footer__chartArea">
@@ -290,7 +285,7 @@
       <div class="wrapper">
         <h2 class="headline headline--centered headline--b-margin-small">Gun Ownership by Country and Territory</h2>
         <!-- <h3 class="headline headline--centered headline--red headline--small headline--narrow headline--b-margin-large">Visualization Area Subtitle</h3> -->
-        <p>Any Content that I want to provide that can take multiple lines if necessary.  In any case, this area will tell about the types of visualizations or provide context as necessary.</p>      
+       <!--  <p>Any Content that I want to provide that can take multiple lines if necessary.  In any case, this area will tell about the types of visualizations or provide context as necessary.</p>  -->     
       </div>  <!-- end wrapper -->
     </div> <!-- end viz-section--header -->
     <div class="viz-section viz-section--free-title">World Firearms Ownership 
@@ -366,7 +361,7 @@
       <div class="wrapper">
         <h2 class="headline headline--centered headline--b-margin-small">Mass Shooting & Mortality Rate</h2>
         <!-- <h3 class="headline headline--centered headline--red headline--small headline--narrow headline--b-margin-large">Visualization Area Subtitle</h3> -->
-        <p>Any Content that I want to provide that can take multiple lines if necessary.  In any case, this area will tell about the types of visualizations or provide context as necessary.</p>      
+              
       </div>  <!-- end wrapper -->
     </div> <!-- end viz-section--header -->
 
@@ -385,20 +380,6 @@
     <!-- end tableau embedding -->
     <div class="postScript">Source: Centers for Disease Control, Mother Jones, and Injury Prevention<br>Created by: Robert Harris<br>Platform: Tableau Desktop and Tableau Public
     </div>
-
-    <div id="#" class="#" >
-      <table style="width: 90%">
-        <!-- <caption>Gun Ownership in the Top and Bottom 10 Countries & Territories (2015)</caption> -->
-        <tr>
-          <td><div id="#" style="width: 800px;height: 400px;"></div></td>
-          <td><div id="#" style="width: 800px;height: 400px;"></div></td>
-        </tr>
-        <tr>
-          <td id="postScript" class="postScript" style="width: 50%;">Source: Centers for Disease Control, Mother Jones, and Injury Prevention<br>Created by: Robert Harris<br>Platform: Tableau Desktop and Tableau Public</td>
-          <td id="postScript" class="postScript">Source: Small Arms Survey 2015<br>Created by: Robert Harris<br>Platform: #</td>
-        </tr>
-      </table>
-    </div>
     <div class="site-footer site-footer__chartArea">
       <div class="wrapper">
         <a href="#top" class="btn btn--visarea">Home</a>
@@ -409,17 +390,44 @@
 
 
 
-
-
+  <div id="visualizations4" class="viz-section viz-section--1">
+   <div id="vizSection4" class="viz-section viz-section--header"> 
+    <!-- <div class="visualizations visualizations  header"> -->
+      <div class="wrapper">
+        <h2 class="headline headline--centered headline--b-margin-small">Comparison of Gun Homicides Worldwide by Country and Territory</h2>
+        <!-- <h3 class="headline headline--centered headline--red headline--small headline--narrow headline--b-margin-large">Visualization Area Subtitle</h3> -->
+       <!--  <p>Any Content that I want to provide that can take multiple lines if necessary.  In any case, this area will tell about the types of visualizations or provide context as necessary.</p>  -->     
+      </div>  <!-- end wrapper -->
+    </div> <!-- end viz-section--header -->
+    
+    <div id="#" class="#" >
+      <table style="width: 90%">
+        <!-- <caption>Gun Ownership in the Top and Bottom 10 Countries & Territories (2015)</caption> -->
+        <tr>
+          <td><div id="intentionalHomiWorldTop20_div" style="width: 800px;height: 700px;"></div></td>
+          <td><div id="intentionalHomiWorldBottom20_div" style="width: 800px;height: 700px;"></div></td>
+        </tr>
+        <tr>
+          <td id="postScript" class="postScript" style="width: 50%;">UNODC<br>Created by: Robert Harris<br>Platform: Google API</td>
+          <td id="postScript" class="postScript">Source: UNODC<br>Created by: Robert Harris<br>Platform: Google API</td>
+        </tr>
+      </table>
+    </div>
+    <div class="site-footer site-footer__chartArea">
+      <div class="wrapper">
+        <a href="#top" class="btn btn--visarea">Home</a>
+      </div> <!-- end wrapper -->
+    </div> <!-- end site footer -->      
+  </div>  <!-- end visualization section 1 -->
 
 
 
   <!-- references section  -->
-  <div id="References" class="viz-section viz-section--1">
-   <div id="vizSection1" class="viz-section viz-section--header"> 
+  <div id="references" class="viz-section viz-section--1">
+   <div id="references" class="viz-section viz-section--header"> 
     <!-- <div class="visualizations visualizations  header"> -->
       <div class="wrapper">
-        <h2 class="headline headline--centered headline--b-margin-small">References and sources used during this class</h2>   
+        <h2 class="headline headline--centered headline--b-margin-small">Applications and Links</h2>   
       </div>  <!-- end wrapper -->
     </div> <!-- end viz-section--header -->
     
@@ -427,44 +435,38 @@
     <div id="#" class="#" >
       <table style="width: 100%">
         <tr>
-          <td>
-            <a href="https://datasci.columbian.gwu.edu/" target="blank">
-              <img src="assets/images/gwulogo.png" alt="GWU Logo">
-            </a>
+          <td align="center">
+            <!-- <a href="https://datasci.columbian.gwu.edu/" target="blank">
+              <img src="assets/images/gwulogo.png" alt="GWU Logo" style="width: 100px;height: 100px;">
+            </a> -->
           </td>
-          <td>
+          <td align="center">
             <a href="https://www.tableau.com/" target="blank">
-              <img src="assets/images/tableauLogo.png" alt="Tableau Logo">
+              <img src="assets/images/tableauLogo.png" alt="Tableau Logo" style="width: 200px;height: 100px;">
             </a>
           </td>
-          <td>
+          <td align="center">
             <a href="https://d3js.org/" target="blank">
-              <img src="assets/images/d3Logo.jpg" alt="D3.js Logo">
+              <img src="assets/images/d3Logo.jpg" alt="D3.js Logo" style="width: 100px;height: 75px;">
             </a>
           </td>
         </tr>
         <tr>
-          <td>
+          <td align="center">
              <a href="https://developers.google.com/chart/" target="blank">
-              <img src="assets/images/googleLogo.jpg" alt="Google Charts Logo">
+              <img src="assets/images/googleLogo.jpg" alt="Google Charts Logo" style="width: 150px;height: 150px;">
             </a>
           </td>
-          <td>
+          <td align="center">
             <a href="https://www.w3.org/" target="blank">
-              <img src="assets/images/htmlCssJs.png" alt="Web Technologies Logo">
+              <img src="assets/images/htmlCssJs.png" alt="Web Technologies Logo" style="width: 150px;height: 125px;">
             </a>
           </td>
-          <td>
+          <td align="center">
             <a href="https://aws.amazon.com/" target="blank">
-              <img src="assets/images/awsLogo.png" alt="AWS Logo">
+              <img src="assets/images/awsLogo.png" alt="AWS Logo" style="width: 125px;height: 115px;">
             </a>
-          </td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
+          </td>        
       </table>
       <br>
       <br>
